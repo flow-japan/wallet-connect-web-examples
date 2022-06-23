@@ -7,6 +7,7 @@ export const DEFAULT_MAIN_CHAINS = [
   "eip155:42161",
   "eip155:42220",
   "cosmos:cosmoshub-4",
+  "flow:mainnet",
   "solana:4sGjMW1sUnHzSxGspuhpqLDx6wiyjNtZ",
 ];
 
@@ -17,6 +18,7 @@ export const DEFAULT_TEST_CHAINS = [
   "eip155:80001",
   "eip155:421611",
   "eip155:44787",
+  "flow:testnet",
   "solana:8E9rvCKLFQia2Y35HXjjpWzj8weVo44K",
 ];
 
@@ -59,7 +61,7 @@ export enum DEFAULT_COSMOS_METHODS {
   COSMOS_SIGN_AMINO = "cosmos_signAmino",
 }
 
-export enum DEFAULT_COSMOS_EVENTS {}
+export enum DEFAULT_COSMOS_EVENTS { }
 
 /**
  * SOLANA
@@ -69,4 +71,14 @@ export enum DEFAULT_SOLANA_METHODS {
   SOL_SIGN_MESSAGE = "solana_signMessage",
 }
 
-export enum DEFAULT_SOLANA_EVENTS {}
+export enum DEFAULT_SOLANA_EVENTS { }
+
+/**
+ * FLOW
+ */
+export enum DEFAULT_FLOW_METHODS {
+  FLOW_SIGN_TRANSACTION = "flow_signTransaction",
+  FLOW_SIGN_MESSAGE = "flow_signMessage",
+}
+
+export enum DEFAULT_FLOW_EVENTS { }

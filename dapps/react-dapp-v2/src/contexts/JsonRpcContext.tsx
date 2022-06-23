@@ -25,6 +25,7 @@ import {
   DEFAULT_COSMOS_METHODS,
   DEFAULT_EIP155_METHODS,
   DEFAULT_SOLANA_METHODS,
+  DEFAULT_FLOW_METHODS,
 } from "../constants";
 import { useChainData } from "./ChainDataContext";
 
@@ -54,6 +55,10 @@ interface IContext {
     testSignAmino: TRpcRequestCallback;
   };
   solanaRpc: {
+    testSignMessage: TRpcRequestCallback;
+    testSignTransaction: TRpcRequestCallback;
+  };
+  flowRpc: {
     testSignMessage: TRpcRequestCallback;
     testSignTransaction: TRpcRequestCallback;
   };
@@ -539,6 +544,62 @@ export function JsonRpcContextProvider({ children }: { children: ReactNode | Rea
     ),
   };
 
+  // -------- FLOW RPC METHODS --------
+
+  const flowRpc = {
+    testSignTransaction: _createJsonRpcRequestHandler(
+      async (chainId: string, address: string): Promise<IFormattedRpcResponse> => {
+        try {
+          const result = await client!.request<{ signature: string }>({
+            chainId,
+            topic: session!.topic,
+            request: {
+              method: DEFAULT_FLOW_METHODS.FLOW_SIGN_TRANSACTION,
+              params: {
+                some: "params",
+              },
+            },
+          });
+
+          return {
+            method: DEFAULT_FLOW_METHODS.FLOW_SIGN_TRANSACTION,
+            address,
+            valid: true,
+            result: result.signature,
+          };
+        } catch (error: any) {
+          throw new Error(error);
+        }
+      },
+    ),
+    testSignMessage: _createJsonRpcRequestHandler(
+      async (chainId: string, address: string): Promise<IFormattedRpcResponse> => {
+        try {
+          const result = await client!.request<{ signature: string }>({
+            chainId,
+            topic: session!.topic,
+            request: {
+              method: DEFAULT_FLOW_METHODS.FLOW_SIGN_MESSAGE,
+              params: {
+                some: "params",
+              },
+            },
+          });
+          console.log(result);
+
+          return {
+            method: DEFAULT_FLOW_METHODS.FLOW_SIGN_MESSAGE,
+            address,
+            valid: true,
+            result: "0x12345678", // result.signature,
+          };
+        } catch (error: any) {
+          throw new Error(error);
+        }
+      },
+    ),
+  };
+
   return (
     <JsonRpcContext.Provider
       value={{
@@ -546,6 +607,7 @@ export function JsonRpcContextProvider({ children }: { children: ReactNode | Rea
         ethereumRpc,
         cosmosRpc,
         solanaRpc,
+        flowRpc,
         rpcResult: result,
         isRpcRequestPending: pending,
         isTestnet,

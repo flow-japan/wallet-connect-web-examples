@@ -13,13 +13,14 @@ interface ModalData {
 interface State {
   open: boolean
   view?:
-    | 'SessionProposalModal'
-    | 'SessionSignModal'
-    | 'SessionSignTypedDataModal'
-    | 'SessionSendTransactionModal'
-    | 'SessionUnsuportedMethodModal'
-    | 'SessionSignCosmosModal'
-    | 'SessionSignSolanaModal'
+  | 'SessionProposalModal'
+  | 'SessionSignModal'
+  | 'SessionSignTypedDataModal'
+  | 'SessionSendTransactionModal'
+  | 'SessionUnsuportedMethodModal'
+  | 'SessionSignCosmosModal'
+  | 'SessionSignSolanaModal'
+  | 'SessionSignFlowModal'
   data?: ModalData
 }
 

@@ -95,6 +95,13 @@ export function isSolanaChain(chain: string) {
 }
 
 /**
+ * Check if chain is part of FLOW standard
+ */
+export function isFlowChain(chain: string) {
+  return chain.includes('flow')
+}
+
+/**
  * Formats chainId to its name
  */
 export function formatChainName(chainId: string) {

@@ -4,6 +4,7 @@ import * as eip155 from "./eip155";
 import * as cosmos from "./cosmos";
 import * as polkadot from "./polkadot";
 import * as solana from "./solana";
+import * as flow from "./flow";
 
 import { ChainMetadata, ChainRequestRender } from "../helpers";
 
@@ -18,6 +19,8 @@ export function getChainMetadata(chainId: string): ChainMetadata {
       return polkadot.getChainMetadata(chainId);
     case "solana":
       return solana.getChainMetadata(chainId);
+    case "flow":
+      return flow.getChainMetadata(chainId);
     default:
       throw new Error(`No metadata handler for namespace ${namespace}`);
   }

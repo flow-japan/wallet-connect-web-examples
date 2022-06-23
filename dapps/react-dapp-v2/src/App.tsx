@@ -11,6 +11,7 @@ import {
   DEFAULT_EIP155_METHODS,
   DEFAULT_MAIN_CHAINS,
   DEFAULT_SOLANA_METHODS,
+  DEFAULT_FLOW_METHODS,
   DEFAULT_TEST_CHAINS,
 } from "./constants";
 import { AccountAction, setLocaleStorageTestnetFlag } from "./helpers";
@@ -60,6 +61,7 @@ export default function App() {
     ethereumRpc,
     cosmosRpc,
     solanaRpc,
+    flowRpc,
     isRpcRequestPending,
     rpcResult,
     isTestnet,
@@ -154,6 +156,22 @@ export default function App() {
     ];
   };
 
+  const getFlowActions = (): AccountAction[] => {
+    // TODO:
+    const onSignTransaction = async (chainId: string, address: string) => {
+      openRequestModal();
+      await flowRpc.testSignTransaction(chainId, address);
+    };
+    const onSignMessage = async (chainId: string, address: string) => {
+      openRequestModal();
+      await flowRpc.testSignMessage(chainId, address);
+    };
+    return [
+      { method: DEFAULT_FLOW_METHODS.FLOW_SIGN_TRANSACTION, callback: onSignTransaction },
+      { method: DEFAULT_FLOW_METHODS.FLOW_SIGN_MESSAGE, callback: onSignMessage },
+    ];
+  };
+
   const getBlockchainActions = (chainId: string) => {
     const [namespace] = chainId.split(":");
     switch (namespace) {
@@ -163,6 +181,8 @@ export default function App() {
         return getCosmosActions();
       case "solana":
         return getSolanaActions();
+      case "flow":
+        return getFlowActions();
       default:
         break;
     }

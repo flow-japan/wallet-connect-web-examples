@@ -1,6 +1,7 @@
 import { apiGetChainNamespace, ChainsMap } from "caip-api";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { SolanaChainData } from "../chains/solana";
+import { FlowChainData } from "../chains/flow";
 
 import { ChainNamespaces, getAllChainNamespaces } from "../helpers";
 
@@ -31,6 +32,8 @@ export function ChainDataContextProvider({ children }: { children: ReactNode | R
         try {
           if (namespace === "solana") {
             chains = SolanaChainData;
+          } else if (namespace === "flow") {
+            chains = FlowChainData;
           } else {
             chains = await apiGetChainNamespace(namespace);
           }

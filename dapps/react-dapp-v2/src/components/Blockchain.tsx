@@ -102,6 +102,10 @@ function getBlockchainDisplayData(
   chainData: ChainNamespaces,
 ): BlockchainDisplayData | undefined {
   const [namespace, reference] = chainId.split(":");
+  if (chainId === "flow:mainnet") {
+    console.log("flow", namespace, reference);
+  }
+
   let meta: ChainMetadata;
   try {
     meta = getChainMetadata(chainId);
